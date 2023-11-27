@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class HelloControllerIT {
+class HelloControllerIntTest {
     @Autowired
     private val template: TestRestTemplate? = null
 
