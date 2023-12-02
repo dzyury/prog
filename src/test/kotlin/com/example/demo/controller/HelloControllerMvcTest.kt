@@ -1,4 +1,4 @@
-package com.example.demo
+package com.example.demo.controller
 
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class HelloControllerTest {
+class HelloControllerMvcTest {
 	@Autowired
 	private val mvc: MockMvc? = null
 
@@ -22,6 +22,6 @@ class HelloControllerTest {
 		mvc!!.perform(MockMvcRequestBuilders.get("/")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Greetings from Spring Boot!")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Hello")))
 	}
 }
