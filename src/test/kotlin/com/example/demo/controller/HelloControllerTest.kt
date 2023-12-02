@@ -12,16 +12,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class HelloControllerMvcTest {
-	@Autowired
-	private val mvc: MockMvc? = null
+class HelloControllerTest {
+    @Autowired
+    private lateinit var mvc: MockMvc
 
-	@Test
-	@Throws(Exception::class)
-	fun getHello() {
-		mvc!!.perform(MockMvcRequestBuilders.get("/")
-			.accept(MediaType.APPLICATION_JSON))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Hello")))
-	}
+    @Test
+    fun getHello() {
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Hello")))
+    }
 }
