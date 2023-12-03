@@ -20,7 +20,7 @@ class TestControllerTest {
     @ParameterizedTest
     @CsvSource(value = ["""Kot;4;{"name":"Kot","age":4}""", """Kitten;2;{"name":"Kitten","age":2}"""], delimiter = ';')
     fun testJson(name: String, age: Int, expected: String) {
-        val builder = Builders.get("/test?name=$name&age=$age").accept(MediaType.APPLICATION_JSON)
+        val builder = Builders.get("/test1?name=$name&age=$age").accept(MediaType.APPLICATION_JSON)
         mvc.perform(builder)
             .andExpect(MMatchers.status().isOk())
             .andExpect(MMatchers.content().string(HMatchers.equalTo(expected)))
@@ -29,7 +29,7 @@ class TestControllerTest {
     @ParameterizedTest
     @CsvSource(value = ["""Kot;4;<Cat><name>Kot</name><age>4</age></Cat>""", """Kitten;2;<Cat><name>Kitten</name><age>2</age></Cat>"""], delimiter = ';')
     fun testXml(name: String, age: Int, expected: String) {
-        val builder = Builders.get("/test?name=$name&age=$age").accept(MediaType.APPLICATION_XML)
+        val builder = Builders.get("/test1?name=$name&age=$age").accept(MediaType.APPLICATION_XML)
         mvc.perform(builder)
             .andExpect(MMatchers.status().isOk())
             .andExpect(MMatchers.content().string(HMatchers.equalTo(expected)))
