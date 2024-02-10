@@ -2,9 +2,9 @@ name: Build and Test Java Spring Boot Application
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "cat" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "cat" ]
 
 jobs:
   build:

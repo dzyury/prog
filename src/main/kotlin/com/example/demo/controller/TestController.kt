@@ -7,17 +7,11 @@ import org.springframework.web.bind.annotation.RestController
 import java.io.IOException
 
 //@Controller
-
-
 @RestController
 class TestController {
     @GetMapping("/test1")
-    fun index(@RequestParam("name") name : String, @RequestParam("age") age : Int,  @RequestParam("err", defaultValue = "0") err: Int): Cat {
-        when(err) {
-            1 -> throw RuntimeException("KO")
-            2 -> throw IOException("IO")
-        }
-
-        return Cat(name, age) // Cat("Kot", 4)
-    }
+    fun index(
+        @RequestParam name: String,
+        @RequestParam age: Int,
+    ) = Cat(name, age)
 }
