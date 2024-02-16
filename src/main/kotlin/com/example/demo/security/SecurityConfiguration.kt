@@ -17,6 +17,7 @@ class SecurityConfiguration {
         http
             .authorizeHttpRequests {
                 it.requestMatchers("/user").permitAll()
+                it.requestMatchers("/cat/**").permitAll()
                 it.anyRequest().authenticated()
             }
             .httpBasic(Customizer.withDefaults())
