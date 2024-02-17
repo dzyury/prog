@@ -1,6 +1,7 @@
 package com.example.demo.security
 
-import org.springframework.security.core.userdetails.User
+import com.example.demo.data.User
+import org.springframework.security.core.userdetails.User as SUser
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class MapUserDetailsService(val encoder: PasswordEncoder) : UserDetailsService {
+    private var lastId: Int = 0
     private val map = mutableMapOf<String, User>()
 
 //    init {
@@ -17,13 +19,20 @@ class MapUserDetailsService(val encoder: PasswordEncoder) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails {
         val user = map[username] ?: throw UsernameNotFoundException("KO")
-        return User(user.username, user.password, user.authorities)
+        return SUser(user.name, user.password, listOf())
     }
 
-    fun add(username: String, password: String) {
+    fun add(username: String, password: String): Boolean {
+        if (username in map)
+            return false
         val encryptedPassword = encoder.encode(password)
         println("pass: $encryptedPassword")
-        val user = User(username, encryptedPassword, listOf())
+        val user = User(lastId++, username, encryptedPassword)
         map[username] = user
+        return true
+    }
+
+    fun getUserByName(name: String): User? {
+        return map[name]
     }
 }
