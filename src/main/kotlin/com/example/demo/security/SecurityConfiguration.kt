@@ -16,6 +16,7 @@ class SecurityConfiguration {
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .authorizeHttpRequests {
+                it.requestMatchers("/user").permitAll()
                 it.requestMatchers("/cat/**").permitAll()
                 it.anyRequest().authenticated()
             }
