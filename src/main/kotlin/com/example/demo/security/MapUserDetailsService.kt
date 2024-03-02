@@ -24,10 +24,14 @@ class MapUserDetailsService(val encoder: PasswordEncoder) : UserDetailsService {
 
     fun add(username: String, password: String) {
         val encryptedPassword = encoder.encode(password)
-        println("pass: $encryptedPassword")
         val user = SUser(username, encryptedPassword, listOf())
 
         if (map.containsKey(user.username)) throw HttpException(HttpStatus.CONFLICT, "User exists")
         map[username] = user
+    }
+
+    // for testing only
+    fun clear() {
+        map.clear()
     }
 }

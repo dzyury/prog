@@ -1,5 +1,7 @@
 package com.example.demo.controller
 
+import com.example.demo.security.MapUserDetailsService
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.hamcrest.Matchers as HMatchers
 import org.junit.jupiter.params.ParameterizedTest
@@ -17,10 +19,17 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers as MMat
 class CatControllerTest {
     @Autowired
     private lateinit var mvc: MockMvc
+    @Autowired
+    private lateinit var authService: MapUserDetailsService
 
     val auth = "Basic Y2F0OmNhdA=="
     val request = """{"name":"cat","password":"cat"}"""
     val response = """{"name":"cat","age":2}"""
+
+    @AfterEach
+    fun clean() {
+        authService.clear()
+    }
 
     @ParameterizedTest
     @CsvSource(value = ["""Kot;4;{"name":"Kot","age":4}""", """Kitten;2;{"name":"Kitten","age":2}"""], delimiter = ';')
