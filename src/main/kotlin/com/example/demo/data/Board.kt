@@ -6,4 +6,8 @@ data class Board(
     val status: BoardStatus,
     val details: String,
     val users: List<User>
-)
+) {
+    companion object {
+        const val INIT_DETAILS = "_________"
+    }
+}
