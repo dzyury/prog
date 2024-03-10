@@ -1,19 +1,21 @@
 package com.example.demo.security
 
 import com.example.demo.error.HttpException
-import org.springframework.http.HttpStatus
-import org.springframework.security.core.userdetails.User as SUser
+import org.springframework.http.HttpStatus.CONFLICT
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.util.concurrent.ConcurrentHashMap
+import org.springframework.security.core.userdetails.User as SUser
 
 @Service
 class MapUserDetailsService(val encoder: PasswordEncoder) : UserDetailsService {
-    private val map = mutableMapOf<String, SUser>()
+    private val map = ConcurrentHashMap<String, SUser>()
 
 //    init {
+//        add("kit", "cat")
 //        add("cat", "cat")
 //    }
 
@@ -25,9 +27,8 @@ class MapUserDetailsService(val encoder: PasswordEncoder) : UserDetailsService {
     fun add(username: String, password: String) {
         val encryptedPassword = encoder.encode(password)
         val user = SUser(username, encryptedPassword, listOf())
-
-        if (map.containsKey(user.username)) throw HttpException(HttpStatus.CONFLICT, "User exists")
-        map[username] = user
+        val message = "User is already registered"
+        map.compute(username) { _, v -> if (v == null) user else throw HttpException(CONFLICT, message) }
     }
 
     // for testing only

@@ -62,14 +62,13 @@ PATCH /game/{id}/room/{id}/board/any
 200 OK
 {
   "id": <id>,
-  "turn": <user id> 
+  "turn": <user.position> 
   "status": waiting, playing
   "details": "x0____x__",
   "users": [{
-    "id": <id>,
     "name": <name>,
     "role": player|observer,
-    "position": white|black|cross|nought
+    "position": white|black
   }]
 }
 ```
@@ -100,10 +99,10 @@ GET /game/(id}/room/{id}/board/{id}
 
 ###### 1.4 Окончание игры
 
-При окончании игры в [ответ](#ответ-на-создание-или-подключение-к-игре) добавляется параметр
+При окончании игры в [ответ](#ответ-на-создание-или-подключение-к-игре)e используется расширенный статус:
 ```
 {
-  "winner": <user id>
+  "status": draw|white won|black won
 }  
 ```
 Далее игра за данным столом невозможна и логика переходит к [началу](#12-начало-игры)
