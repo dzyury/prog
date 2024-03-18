@@ -15,18 +15,16 @@ class BoardController(val service: BoardService) {
 
     @GetMapping("/game/{gid}/room/{rid}/board/{bid}")
     fun read(@PathVariable bid: Int): Board {
-        val board = service.get(bid)
-        return board
+        return service.get(bid)
     }
 
     @PatchMapping("/game/{gid}/room/{rid}/board/any")
     fun create(@RequestBody user: User): Board {
-        val board = service.findOrCreateBoard(user)
-        return board
+        return service.findOrCreateBoard(user)
     }
 
     @PatchMapping("/game/{gid}/room/{rid}/board/{bid}")
-    fun create(@RequestBody turn: BoardTurn, @PathVariable bid: Int): Board {
+    fun turn(@RequestBody turn: BoardTurn, @PathVariable bid: Int): Board {
         return service.turn(bid, user.username, turn.details)
     }
 }

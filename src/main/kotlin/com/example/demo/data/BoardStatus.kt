@@ -5,7 +5,11 @@ import com.fasterxml.jackson.annotation.JsonValue
 
 enum class BoardStatus(@JsonValue val value: String) {
     WAITING("waiting"),
-    PLAYING("playing");
+    PLAYING("playing"),
+
+    DRAW("draw"),
+    WHITE_WON("white won"),
+    BLACK_WON("black won");
 
     companion object {
         @JsonCreator
