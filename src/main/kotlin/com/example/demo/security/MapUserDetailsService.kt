@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
 
+
 data class User(val id: Int? = null, val name: String, val password: String)
 
 @Service

@@ -5,8 +5,8 @@ import com.example.demo.data.BoardTurn
 import com.example.demo.data.User
 import com.example.demo.service.BoardService
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.User as SUser
 import org.springframework.web.bind.annotation.*
+import org.springframework.security.core.userdetails.User as SUser
 
 @RestController
 class BoardController(val service: BoardService) {
